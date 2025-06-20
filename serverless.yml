@@ -1,0 +1,25 @@
+service: email-api
+
+frameworkVersion: '4.17.1'
+
+provider:
+  name: aws # We're not actually using AWS but need this for serverless-offline
+  runtime: nodejs18.x
+  stage: dev
+  region: us-east-1
+
+functions:
+  sendEmail:
+    handler: handler.sendEmail
+    events:
+      - http:
+          path: send-email
+          method: post
+          cors: true
+
+plugins:
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 4000 # You can change this port if needed
